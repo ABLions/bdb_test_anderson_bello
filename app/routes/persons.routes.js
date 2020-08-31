@@ -13,7 +13,7 @@ module.exports = app => {
     router.get("/", person.findAllAdopted);
 
     // Retrieve a person with id
-    router.get("/", person.findOne);
+    router.get("/:id", person.findOne);
 
     // Update a person with id
     router.put("/:id", person.update);

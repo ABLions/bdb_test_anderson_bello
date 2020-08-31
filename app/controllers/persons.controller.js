@@ -34,41 +34,40 @@ exports.create = (req, res) => {
 
 // Retrieve all persons from the database
 exports.findAll = (req, res) => {
-    const fullname = req.query.fullname;
-    var condition = fullname ? { fullname: { [Op.iLike]: `%${fullname}%`} } : null;
-
+    const person = req.query.person;
+    var condition = person ? { person: { [Op.iLike]: `%${person}%` } } : null;
+  
     Person.findAll({ where: condition })
-    .then(data => {
+      .then(data => {
         res.send(data);
-    })
-    .catch(err => {
+      })
+      .catch(err => {
         res.status(500).send({
-            message:
-                err.message || "Some error occurred while retrieving persons"
+          message:
+            err.message || "Some error occurred while retrieving Persons."
         });
-    });
-};
+      });
+  };
 
 // Find a person with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
-
+    
     Person.findByPk(id)
-    .then(data => {
+      .then(data => {
         res.send(data);
-    })
-    .catch(err => {
+      })
+      .catch(err => {
         res.status(500).send({
-            message:
-                err.message || "Error retrieving Person with id = " + id
+          message: "Error retrieving Person with id=" + id
         });
-    });
-};
+      });
+  };
 
 // Update a person by the id
 exports.update = (req, res) => {
     const id = req.params.id;
-
+        
     Person.update(req.body, {
         where: { id: id }
     })
